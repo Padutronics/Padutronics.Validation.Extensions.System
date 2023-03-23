@@ -23,4 +23,9 @@ public static class Int64VerificationStageExtensions
     {
         return @this.GreaterThanOrEqualTo(0L);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Zero<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, long> @this)
+    {
+        return @this.EqualTo(0L);
+    }
 }
