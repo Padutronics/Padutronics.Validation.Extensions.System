@@ -13,4 +13,9 @@ public static class SByteVerificationStageExtensions
     {
         return @this.LessThanOrEqualTo((sbyte)0);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Positive<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, sbyte> @this)
+    {
+        return @this.GreaterThan((sbyte)0);
+    }
 }
