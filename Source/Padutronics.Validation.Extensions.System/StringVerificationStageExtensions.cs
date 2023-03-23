@@ -1,6 +1,7 @@
 ﻿using Padutronics.Validation.Extensions.System.Verifiers;
-using Padutronics.Validation.Extensions.System.Verifiers.Adapters;
 using Padutronics.Validation.Rules.Building.Fluent;
+using Padutronics.Validation.ValueExtractors;
+using Padutronics.Validation.Verifiers.Adapters;
 using System;
 
 namespace Padutronics.Validation.Extensions.System;
@@ -14,9 +15,14 @@ public static class StringVerificationStageExtensions
 
     public static IConditionStage<TRuleChainBuilder, TTarget> Contain<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> substringExtractor)
     {
+        return @this.Contain(new DelegateValueExtractor<TTarget, string>(substringExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Contain<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, IValueExtractor<TTarget, string> substringExtractor)
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, string>(
-                target => new ContainStringVerifier(substringExtractor(target))
+                target => new ContainStringVerifier(substringExtractor.Extract(target))
             )
         );
     }
@@ -33,9 +39,14 @@ public static class StringVerificationStageExtensions
 
     public static IConditionStage<TRuleChainBuilder, TTarget> EndWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> suffixExtractor)
     {
+        return @this.EndWith(new DelegateValueExtractor<TTarget, string>(suffixExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> EndWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, IValueExtractor<TTarget, string> suffixExtractor)
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, string>(
-                target => new EndStringVerifier(suffixExtractor(target))
+                target => new EndStringVerifier(suffixExtractor.Extract(target))
             )
         );
     }
@@ -47,9 +58,14 @@ public static class StringVerificationStageExtensions
 
     public static IConditionStage<TRuleChainBuilder, TTarget> Match<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> patternExtractor)
     {
+        return @this.Match(new DelegateValueExtractor<TTarget, string>(patternExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Match<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, IValueExtractor<TTarget, string> patternExtractor)
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, string>(
-                target => new RegularExpressionStringVerifier(patternExtractor(target))
+                target => new RegularExpressionStringVerifier(patternExtractor.Extract(target))
             )
         );
     }
@@ -61,9 +77,14 @@ public static class StringVerificationStageExtensions
 
     public static IConditionStage<TRuleChainBuilder, TTarget> StartWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> prefixExtractor)
     {
+        return @this.StartWith(new DelegateValueExtractor<TTarget, string>(prefixExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> StartWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, IValueExtractor<TTarget, string> prefixExtractor)
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, string>(
-                target => new StartStringVerifier(prefixExtractor(target))
+                target => new StartStringVerifier(prefixExtractor.Extract(target))
             )
         );
     }

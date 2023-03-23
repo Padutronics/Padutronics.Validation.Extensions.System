@@ -1,7 +1,8 @@
 ﻿using Padutronics.Ranges;
 using Padutronics.Validation.Extensions.System.Verifiers;
-using Padutronics.Validation.Extensions.System.Verifiers.Adapters;
 using Padutronics.Validation.Rules.Building.Fluent;
+using Padutronics.Validation.ValueExtractors;
+using Padutronics.Validation.Verifiers.Adapters;
 using System;
 
 namespace Padutronics.Validation.Extensions.System;
@@ -20,6 +21,12 @@ public static class ComparableVerificationStageExtensions
         return @this.GreaterThanOrEqualTo(lowerBoundExtractor);
     }
 
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtLeast<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> lowerBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
+        return @this.GreaterThanOrEqualTo(lowerBoundExtractor);
+    }
+
     public static IConditionStage<TRuleChainBuilder, TTarget> AtMost<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue upperBound)
         where TValue : IComparable<TValue>
     {
@@ -27,6 +34,12 @@ public static class ComparableVerificationStageExtensions
     }
 
     public static IConditionStage<TRuleChainBuilder, TTarget> AtMost<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> upperBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
+        return @this.LessThanOrEqualTo(upperBoundExtractor);
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtMost<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> upperBoundExtractor)
         where TValue : IComparable<TValue>
     {
         return @this.LessThanOrEqualTo(upperBoundExtractor);
@@ -41,9 +54,15 @@ public static class ComparableVerificationStageExtensions
     public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> lowerBoundExtractor)
         where TValue : IComparable<TValue>
     {
+        return @this.GreaterThan(new DelegateValueExtractor<TTarget, TValue>(lowerBoundExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> lowerBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
-                target => new GreaterComparableVerifier<TValue>(lowerBoundExtractor(target))
+                target => new GreaterComparableVerifier<TValue>(lowerBoundExtractor.Extract(target))
             )
         );
     }
@@ -57,9 +76,15 @@ public static class ComparableVerificationStageExtensions
     public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThanOrEqualTo<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> lowerBoundExtractor)
         where TValue : IComparable<TValue>
     {
+        return @this.GreaterThanOrEqualTo(new DelegateValueExtractor<TTarget, TValue>(lowerBoundExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThanOrEqualTo<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> lowerBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
-                target => new GreaterOrEqualComparableVerifier<TValue>(lowerBoundExtractor(target))
+                target => new GreaterOrEqualComparableVerifier<TValue>(lowerBoundExtractor.Extract(target))
             )
         );
     }
@@ -73,9 +98,15 @@ public static class ComparableVerificationStageExtensions
     public static IConditionStage<TRuleChainBuilder, TTarget> InRange<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, Range<TValue>> rangeExtractor)
         where TValue : IComparable<TValue>
     {
+        return @this.InRange(new DelegateValueExtractor<TTarget, Range<TValue>>(rangeExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> InRange<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, Range<TValue>> rangeExtractor)
+        where TValue : IComparable<TValue>
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
-                target => new RangeComparableVerifier<TValue>(rangeExtractor(target))
+                target => new RangeComparableVerifier<TValue>(rangeExtractor.Extract(target))
             )
         );
     }
@@ -101,9 +132,15 @@ public static class ComparableVerificationStageExtensions
     public static IConditionStage<TRuleChainBuilder, TTarget> LessThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> upperBoundExtractor)
         where TValue : IComparable<TValue>
     {
+        return @this.LessThan(new DelegateValueExtractor<TTarget, TValue>(upperBoundExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> LessThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> upperBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
-                target => new LessComparableVerifier<TValue>(upperBoundExtractor(target))
+                target => new LessComparableVerifier<TValue>(upperBoundExtractor.Extract(target))
             )
         );
     }
@@ -117,9 +154,15 @@ public static class ComparableVerificationStageExtensions
     public static IConditionStage<TRuleChainBuilder, TTarget> LessThanOrEqualTo<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> upperBoundExtractor)
         where TValue : IComparable<TValue>
     {
+        return @this.LessThanOrEqualTo(new DelegateValueExtractor<TTarget, TValue>(upperBoundExtractor));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> LessThanOrEqualTo<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, IValueExtractor<TTarget, TValue> upperBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
         return @this.VerifiableBy(
             new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
-                target => new LessOrEqualComparableVerifier<TValue>(upperBoundExtractor(target))
+                target => new LessOrEqualComparableVerifier<TValue>(upperBoundExtractor.Extract(target))
             )
         );
     }
