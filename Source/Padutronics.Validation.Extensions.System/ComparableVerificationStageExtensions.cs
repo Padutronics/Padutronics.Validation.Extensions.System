@@ -19,6 +19,18 @@ public static class ComparableVerificationStageExtensions
         return @this.GreaterThanOrEqualTo(lowerBoundExtractor);
     }
 
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtMost<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue upperBound)
+        where TValue : IComparable<TValue>
+    {
+        return @this.LessThanOrEqualTo(upperBound);
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtMost<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> upperBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
+        return @this.LessThanOrEqualTo(upperBoundExtractor);
+    }
+
     public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue lowerBound)
         where TValue : IComparable<TValue>
     {
