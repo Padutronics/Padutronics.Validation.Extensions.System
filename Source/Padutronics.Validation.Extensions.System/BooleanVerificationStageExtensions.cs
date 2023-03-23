@@ -8,4 +8,9 @@ public static class BooleanVerificationStageExtensions
     {
         return @this.EqualTo(false);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> True<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, bool> @this)
+    {
+        return @this.EqualTo(true);
+    }
 }
