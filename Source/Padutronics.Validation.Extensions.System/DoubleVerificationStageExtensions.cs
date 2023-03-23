@@ -13,4 +13,9 @@ public static class DoubleVerificationStageExtensions
     {
         return @this.LessThanOrEqualTo(0.0);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Positive<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, double> @this)
+    {
+        return @this.GreaterThan(0.0);
+    }
 }
