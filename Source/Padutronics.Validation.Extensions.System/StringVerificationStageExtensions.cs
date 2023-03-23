@@ -39,4 +39,18 @@ public static class StringVerificationStageExtensions
             )
         );
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> StartWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, string prefix)
+    {
+        return @this.VerifiableBy(new StartStringVerifier(prefix));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> StartWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> prefixExtractor)
+    {
+        return @this.VerifiableBy(
+            new VerifierFactoryToVerifierAdapter<TTarget, string>(
+                target => new StartStringVerifier(prefixExtractor(target))
+            )
+        );
+    }
 }
