@@ -7,6 +7,18 @@ namespace Padutronics.Validation.Extensions.System;
 
 public static class ComparableVerificationStageExtensions
 {
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtLeast<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue lowerBound)
+        where TValue : IComparable<TValue>
+    {
+        return @this.GreaterThanOrEqualTo(lowerBound);
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> AtLeast<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> lowerBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
+        return @this.GreaterThanOrEqualTo(lowerBoundExtractor);
+    }
+
     public static IConditionStage<TRuleChainBuilder, TTarget> GreaterThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue lowerBound)
         where TValue : IComparable<TValue>
     {
