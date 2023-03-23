@@ -25,4 +25,18 @@ public static class StringVerificationStageExtensions
     {
         return @this.VerifiableBy(new EmptyStringVerifier());
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> EndWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, string suffix)
+    {
+        return @this.VerifiableBy(new EndStringVerifier(suffix));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> EndWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> suffixExtractor)
+    {
+        return @this.VerifiableBy(
+            new VerifierFactoryToVerifierAdapter<TTarget, string>(
+                target => new EndStringVerifier(suffixExtractor(target))
+            )
+        );
+    }
 }
