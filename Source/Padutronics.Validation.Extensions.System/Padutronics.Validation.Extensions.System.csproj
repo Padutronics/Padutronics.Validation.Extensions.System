@@ -16,6 +16,7 @@
         <RepositoryType>Git</RepositoryType>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Padutronics.Extensions.System" Version="0.5.0" />
         <PackageReference Include="Padutronics.Ranges" Version="0.1.0" />
         <PackageReference Include="Padutronics.Validation" Version="0.1.0" />
     </ItemGroup>

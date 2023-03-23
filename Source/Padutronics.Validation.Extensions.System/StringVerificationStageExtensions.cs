@@ -67,4 +67,9 @@ public static class StringVerificationStageExtensions
             )
         );
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> WhiteSpace<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this)
+    {
+        return @this.VerifiableBy(new WhiteSpaceStringVerifier());
+    }
 }
