@@ -14,4 +14,9 @@ public static class TimeSpanVerificationStageExtensions
     {
         return @this.LessThanOrEqualTo(TimeSpan.Zero);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Positive<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, TimeSpan> @this)
+    {
+        return @this.GreaterThan(TimeSpan.Zero);
+    }
 }
