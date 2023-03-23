@@ -38,4 +38,20 @@ public static class ComparableVerificationStageExtensions
             )
         );
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> LessThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, TValue upperBound)
+        where TValue : IComparable<TValue>
+    {
+        return @this.VerifiableBy(new LessComparableVerifier<TValue>(upperBound));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> LessThan<TRuleChainBuilder, TTarget, TValue>(this IVerificationStage<TRuleChainBuilder, TTarget, TValue> @this, Func<TTarget, TValue> upperBoundExtractor)
+        where TValue : IComparable<TValue>
+    {
+        return @this.VerifiableBy(
+            new VerifierFactoryToVerifierAdapter<TTarget, TValue>(
+                target => new LessComparableVerifier<TValue>(upperBoundExtractor(target))
+            )
+        );
+    }
 }
