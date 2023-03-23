@@ -40,6 +40,20 @@ public static class StringVerificationStageExtensions
         );
     }
 
+    public static IConditionStage<TRuleChainBuilder, TTarget> Match<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, string pattern)
+    {
+        return @this.VerifiableBy(new RegularExpressionStringVerifier(pattern));
+    }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Match<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, Func<TTarget, string> patternExtractor)
+    {
+        return @this.VerifiableBy(
+            new VerifierFactoryToVerifierAdapter<TTarget, string>(
+                target => new RegularExpressionStringVerifier(patternExtractor(target))
+            )
+        );
+    }
+
     public static IConditionStage<TRuleChainBuilder, TTarget> StartWith<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, string> @this, string prefix)
     {
         return @this.VerifiableBy(new StartStringVerifier(prefix));
