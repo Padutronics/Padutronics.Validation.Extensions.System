@@ -8,4 +8,9 @@ public static class DoubleVerificationStageExtensions
     {
         return @this.LessThan(0.0);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> NegativeOrZero<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, double> @this)
+    {
+        return @this.LessThanOrEqualTo(0.0);
+    }
 }
