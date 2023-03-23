@@ -13,4 +13,9 @@ public static class SingleVerificationStageExtensions
     {
         return @this.LessThanOrEqualTo(0.0F);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> Positive<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, float> @this)
+    {
+        return @this.GreaterThan(0.0F);
+    }
 }
