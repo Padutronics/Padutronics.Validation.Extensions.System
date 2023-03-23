@@ -8,4 +8,9 @@ public static class Int32VerificationStageExtensions
     {
         return @this.LessThan(0);
     }
+
+    public static IConditionStage<TRuleChainBuilder, TTarget> NegativeOrZero<TRuleChainBuilder, TTarget>(this IVerificationStage<TRuleChainBuilder, TTarget, int> @this)
+    {
+        return @this.LessThanOrEqualTo(0);
+    }
 }
