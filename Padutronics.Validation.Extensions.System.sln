@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{B59E83E3-1256-4969-B66C-C5C3EB982D6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Padutronics.Validation.Extensions.System", "Source\Padutronics.Validation.Extensions.System\Padutronics.Validation.Extensions.System.csproj", "{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4357CC9D-189B-4621-9C85-98672EB40705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Padutronics.Validation.Extensions.System.Tests", "Tests\Padutronics.Validation.Extensions.System.Tests\Padutronics.Validation.Extensions.System.Tests.csproj", "{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9AA55A97-E60D-4D45-B2CB-DC7E81E5AD10} = {B59E83E3-1256-4969-B66C-C5C3EB982D6F}
+		{CA5EE3F0-739D-4EAD-A606-7E37E4A7FBF0} = {4357CC9D-189B-4621-9C85-98672EB40705}
+	EndGlobalSection
+EndGlobal
